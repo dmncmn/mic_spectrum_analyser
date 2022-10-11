@@ -1,0 +1,6 @@
+venv
+.idea/
+.pytest_cache
+src/__p
+*.pyc
+*.png

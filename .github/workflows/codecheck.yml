@@ -1,0 +1,23 @@
+name: Code check
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main, dev ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: install python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: install venv
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: unit tests
+        run: python -m pytest tests/test_fft.py tests/test_mic.py -v

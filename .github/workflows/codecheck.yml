@@ -21,4 +21,4 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: unit tests
-        run: python -m pytest tests/test_fft.py tests/test_mic.py -v
+        run: python -m pytest tests/unit -v

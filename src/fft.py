@@ -4,6 +4,8 @@ import numpy as np
 
 class FFT:
 
+    """ FFT module for convert time domain data to frequency domain """
+
     FFT_SIZE = 1024
     HALF_SPECTRUM_SIZE = FFT_SIZE // 2
     FFT_DEFAULT_DECIMATION_FACTOR = 1
@@ -11,7 +13,7 @@ class FFT:
 
     @staticmethod
     def _get_time_data(raw_data: str) -> np.array:
-        return np.fromstring(raw_data, np.int16)
+        return np.frombuffer(raw_data, np.int16)
 
     @staticmethod
     def _get_amplitude_spectrum(time_data: np.array) -> np.array:

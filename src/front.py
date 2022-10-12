@@ -36,13 +36,15 @@ class WidgetsWindow:
         self.plot.addItem(self.bargraph)
         self.plot.setMenuEnabled(False)
         self.plot.setMouseEnabled(x=False, y=False)
-        self.plot.showGrid(x=False, y=False)
         self.plot.setXRange(PLOT_X_MIN_VALUE, PLOT_X_MAX_VALUE, padding=0)
         self.plot.setYRange(PLOT_Y_MIN_VALUE, PLOT_Y_MAX_VALUE, padding=0)
         self.plot.setLabel('left', PLOT_LEFT_LABEL)
         self.plot.setLabel('bottom', PLOT_BOTTOM_LABEL)
-        self.plot.hideAxis('left')
-        self.plot.hideAxis('bottom')
+        self.plot.showGrid(x=PLOT_SHOW_GRID_X, y=PLOT_SHOW_GRID_Y)
+        if PLOT_HIDE_AXIS_X:
+            self.plot.hideAxis('bottom')
+        if PLOT_HIDE_AXIS_Y:
+            self.plot.hideAxis('left')
         self.layout.addWidget(self.plot, 1, 1, 1, 2)
 
         self.slider_sens = QSlider()
@@ -132,7 +134,7 @@ class WidgetsWindow:
 
         XDATA_STEP = PLOT_X_MAX_VALUE / len(self.YDATA) * 2
         XDATA = np.arange(PLOT_X_MIN_VALUE, PLOT_X_MAX_VALUE, XDATA_STEP)
-        self.bargraph.setOpts(x=XDATA,
+        self.bargraph.setOpts(x0=XDATA,
                               height=self.YDATA,
                               width=XDATA_STEP * PLOT_BAR_WIDTH,
                               brush=color, pen=color)

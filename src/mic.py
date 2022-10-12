@@ -20,7 +20,7 @@ class Mic(metaclass=MicSingletonMeta):
     def __init__(self):
 
         self.CHUNK = 1024
-        self.RATE = 20000
+        self.RATE = 44100
         self.WIDTH = 2
         self.CHANNELS = 2
 

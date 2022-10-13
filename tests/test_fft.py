@@ -4,6 +4,34 @@ import numpy as np
 from src.fft import FFT
 
 
+@pytest.mark.parametrize("real_freq_hz, sampling_rate_hz",
+                         [(20000, 44100), (10000, 44100),
+                          (2500, 44100), (1000, 44100), (500, 44100),
+                          (10000, 22050), (2500, 22050), (1000, 22050),
+                          (500, 22050), (1000, 10000), (500, 10000)])
+def test_fft_get_amplitude_spectrum(real_freq_hz,
+                                    sampling_rate_hz, fft_size=1024):
+    """
+    Check that the real and measured frequency are
+    the same for measurement error
+    """
+    # Generate sin in time domain
+    t: np.ndarray = np.linspace(0, fft_size / sampling_rate_hz, fft_size)
+    time_data: np.ndarray = np.sin(2 * np.pi * real_freq_hz * t)
+
+    # Get sin in frequency domain
+    FFT.FFT_SIZE = fft_size
+    spectrum: np.ndarray = FFT._get_amplitude_spectrum(time_data)
+
+    # Measure sin frequency
+    measured_freq: float = np.argmax(spectrum) * sampling_rate_hz / fft_size
+
+    # Set measurement error to 5% of real frequency
+    measurement_error_hz: float = 0.05 * real_freq_hz
+
+    assert np.abs(real_freq_hz - measured_freq) < measurement_error_hz
+
+
 @pytest.mark.parametrize("fft_size", [1024, 512, 256, 128, 64])
 def test_fft_normalize_spectrum(fft_size):
     """

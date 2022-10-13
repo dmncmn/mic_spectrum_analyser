@@ -1,9 +1,11 @@
 
 import pyaudio
+import numpy as np
 from typing import Union
+from abc import ABCMeta, abstractmethod
 
 
-class MicSingletonMeta(type):
+class DeviceSingletonABCMeta(ABCMeta):
 
     __instances = {}
 
@@ -13,12 +15,24 @@ class MicSingletonMeta(type):
         return cls.__instances[cls]
 
 
-class Mic(metaclass=MicSingletonMeta):
+class AbstractDevice(metaclass=DeviceSingletonABCMeta):
+
+    """ Default audio device as a singleton """
+
+    @abstractmethod
+    def _connect(self): ...
+
+    @abstractmethod
+    def stream_raw_data(self): ...
+
+
+class Mic(AbstractDevice):
+
+    """ Mic audio device """
 
     IS_ALIVE: bool = True
 
     def __init__(self):
-
         self.CHUNK = 1024
         self.RATE = 44100
         self.WIDTH = 2
@@ -26,12 +40,12 @@ class Mic(metaclass=MicSingletonMeta):
 
         self.stream: Union[pyaudio.Stream, None]
         try:
-            self.stream = self.__connect()
+            self.stream = self._connect()
         except BaseException:
             Mic.IS_ALIVE = False
             self.stream = None
 
-    def __connect(self) -> pyaudio.Stream:
+    def _connect(self) -> pyaudio.Stream:
         p = pyaudio.PyAudio()
         return p.open(format=p.get_format_from_width(self.WIDTH),
                       channels=self.CHANNELS,
@@ -47,3 +61,23 @@ class Mic(metaclass=MicSingletonMeta):
             Mic.IS_ALIVE = False
             raw_data = None
         return raw_data
+
+
+class MockDevice(AbstractDevice):
+
+    """ Mock audio device """
+
+    IS_ALIVE: bool = True
+
+    def __init__(self):
+        self.CHUNK = 1024
+        self.RATE = 44100
+        self.stream = None
+
+    def _connect(self) -> pyaudio.Stream:
+        ...
+
+    def stream_raw_data(self) -> Union[bytes, str, None]:
+        data: np.ndarray = \
+            np.full(shape=(self.CHUNK,), fill_value=100, dtype=np.int16)
+        return np.ndarray.tobytes(data)

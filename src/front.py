@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, \
     QWidget, QGridLayout, QPushButton, QSlider, QSizeGrip, QLabel
 
 from src.styles import *
-from src.stream import Stream
+from src.stream import StreamAdapter
 from src.fft import FFT
 
 
@@ -112,14 +112,14 @@ class WidgetsWindow:
 
     def listen_stream(self):
 
-        if not Stream.IS_ALIVE:
+        if not StreamAdapter.IS_ALIVE:
             self.message = LABEL_EXCEPTION_TEXT
             self.timer_update_bar.stop()
             self.timer_listen_stream.stop()
             return
 
-        self.YDATA = Stream.get_data_ready_to_plot(self.decimation,
-                                                   self.sensitivity)
+        self.YDATA = StreamAdapter.get_data_ready_to_plot(self.decimation,
+                                                          self.sensitivity)
 
     def update_bar(self):
 

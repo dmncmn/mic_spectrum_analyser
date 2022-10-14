@@ -23,12 +23,12 @@ class StreamAdapter:
     @staticmethod
     def _data_out(raw_data: str,
                   decimation_factor: int,
-                  sensitivity: int) -> np.ndarray:
+                  sensitivity: float) -> np.ndarray:
         return FFT.data_ready_to_plot(raw_data, decimation_factor, sensitivity)
 
     @staticmethod
     def get_data_ready_to_plot(decimation_factor: int,
-                               sensitivity: int) -> Union[np.ndarray, None]:
+                               sensitivity: float) -> Union[np.ndarray, None]:
         raw_data = StreamAdapter._data_in()
         if raw_data is None:
             return

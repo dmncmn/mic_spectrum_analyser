@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, \
     QWidget, QGridLayout, QPushButton, QSlider, QSizeGrip, QLabel
 
 from src.styles import *
-from src.stream import Stream
+from src.stream import StreamAdapter
 from src.fft import FFT
 
 
@@ -99,7 +99,7 @@ class WidgetsWindow:
         self.timer_show_message.start()
 
     def sens_setter(self, value):
-        self.sensitivity = value / 10
+        self.sensitivity = value
         self.message = f"{SLIDER_SENSITIVITY_LABEL_TEXT}: {value}"
 
     def res_setter(self, value):
@@ -112,14 +112,14 @@ class WidgetsWindow:
 
     def listen_stream(self):
 
-        if not Stream.IS_ALIVE:
+        if not StreamAdapter.IS_ALIVE:
             self.message = LABEL_EXCEPTION_TEXT
             self.timer_update_bar.stop()
             self.timer_listen_stream.stop()
             return
 
-        self.YDATA = Stream.get_data_ready_to_plot(self.decimation,
-                                                   self.sensitivity)
+        self.YDATA = StreamAdapter.get_data_ready_to_plot(self.decimation,
+                                                          self.sensitivity / 10)
 
     def update_bar(self):
 
@@ -156,14 +156,10 @@ class WindowOverrideEvents(WindowFrameless):
     def __init__(self):
         super().__init__()
         self.drag_pos = QtCore.QPoint()
-        self.sizegrip.mouseMoveEvent = self.dummyEventOverride
         self.plot.mousePressEvent = self.mousePressEvent
         self.plot.mouseReleaseEvent = self.mouseReleaseEvent
         self.plot.mouseMoveEvent = self.mouseMoveEvent
         self.plot.wheelEvent = self.wheelEvent
-
-    def dummyEventOverride(self, event) -> None:
-        ...
 
     def mousePressEvent(self, event) -> None:
         if event.button() == QtCore.Qt.LeftButton:

@@ -4,6 +4,8 @@ import numpy as np
 
 class FFT:
 
+    """ FFT module for convert time domain data to frequency domain """
+
     FFT_SIZE = 1024
     HALF_SPECTRUM_SIZE = FFT_SIZE // 2
     FFT_DEFAULT_DECIMATION_FACTOR = 1
@@ -11,7 +13,7 @@ class FFT:
 
     @staticmethod
     def _get_time_data(raw_data: str) -> np.array:
-        return np.fromstring(raw_data, np.int16)
+        return np.frombuffer(raw_data, np.int16)
 
     @staticmethod
     def _get_amplitude_spectrum(time_data: np.array) -> np.array:
@@ -30,7 +32,7 @@ class FFT:
 
     @staticmethod
     def _change_spectrum_level(spectrum: np.array,
-                               level: int = FFT_DEFAULT_LEVEL_FACTOR) -> np.array:
+                               level: float = FFT_DEFAULT_LEVEL_FACTOR) -> np.array:
         if level == 1:
             return spectrum
         return spectrum * level
@@ -38,7 +40,7 @@ class FFT:
     @staticmethod
     def data_ready_to_plot(raw_data: str,
                            decimation_factor: int,
-                           sensitivity_level: int) -> np.array:
+                           sensitivity_level: float) -> np.array:
         data = FFT._get_time_data(raw_data)
         data = FFT._get_amplitude_spectrum(data)
         data = FFT._decimate_spectrum(data, decimation_factor)

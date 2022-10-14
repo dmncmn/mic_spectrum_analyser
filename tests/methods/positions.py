@@ -14,3 +14,5 @@ LEFT_SLIDER_CLICK_POINT: tuple = -WINDOW_WIDTH // 2 + 40, \
                                   WINDOW_HEIGHT // 2 - 40
 CLOSE_BUTTON_CLICK_POINT: tuple = -WINDOW_WIDTH // 2 + 15, \
                                   WINDOW_HEIGHT // 2 - 15
+SIZE_GRIP_CLICK_POINT: tuple = WINDOW_WIDTH // 2 - 15, \
+                               WINDOW_HEIGHT // 2 - 15

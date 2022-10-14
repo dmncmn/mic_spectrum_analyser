@@ -50,57 +50,14 @@ def test_front_change_opacity_up_down(setup, teardown, assert_screenshots,
 
 
 @pytest.mark.parametrize('same', [False])
-def test_front_window_full_screen_on(setup, teardown, assert_screenshots,
-                                     same):
+@pytest.mark.parametrize("offset_x, offset_y", [(200, 100), (-200, -100)])
+def test_front_size_grip(setup, teardown, assert_screenshots,
+                         offset_x, offset_y, same):
     """
-    Check that the window opens at full screen
-    by double click
-    """
-
-    pyautogui.screenshot(screenshots[0], region=DEFAULT_APP_REGION)
-    pyautogui.doubleClick()
-    pyautogui.screenshot(screenshots[1], region=DEFAULT_APP_REGION)
-
-
-@pytest.mark.parametrize('same', [False])
-def test_front_window_full_screen_off(setup, teardown, assert_screenshots,
-                                      same):
-    """
-    Check that the window returns to normal from full screen
-    by double click
-    """
-    pyautogui.doubleClick()
-
-    pyautogui.screenshot(screenshots[0], region=DEFAULT_APP_REGION)
-    pyautogui.doubleClick()
-    pyautogui.screenshot(screenshots[1], region=DEFAULT_APP_REGION)
-
-
-@pytest.mark.parametrize('same', [False])
-@pytest.mark.parametrize("offset_x", [100, 200])
-def test_front_left_slider(setup, teardown, assert_screenshots,
-                                  same, offset_x):
-    """
-    Check that the bar graph changes by left slider
+    Check that the window size changes by SizeGrip
     """
     pyautogui.screenshot(screenshots[0], region=DEFAULT_APP_REGION)
-    handle_pos = get_new_position(DEFAULT_APP_REGION, LEFT_SLIDER_CLICK_POINT)
-    pyautogui.moveTo(handle_pos)
-    pyautogui.click()
-    pyautogui.dragTo(get_new_position(handle_pos, (offset_x, 0)))
-    pyautogui.screenshot(screenshots[1], region=DEFAULT_APP_REGION)
-
-
-@pytest.mark.parametrize('same', [False])
-@pytest.mark.parametrize("offset_x", [100, 200])
-def test_front_right_slider(setup, teardown, assert_screenshots,
-                            same, offset_x):
-    """
-    Check that the bar graph changes by right slider
-    """
-    pyautogui.screenshot(screenshots[0], region=DEFAULT_APP_REGION)
-    handle_pos = get_new_position(DEFAULT_APP_REGION, RIGHT_SLIDER_CLICK_POINT)
-    pyautogui.moveTo(handle_pos)
-    pyautogui.click()
-    pyautogui.dragTo(get_new_position(handle_pos, (offset_x, 0)))
+    size_grip_pos = get_new_position(DEFAULT_APP_REGION, SIZE_GRIP_CLICK_POINT)
+    pyautogui.moveTo(size_grip_pos)
+    pyautogui.dragTo(get_new_position(size_grip_pos, (offset_x, offset_y)))
     pyautogui.screenshot(screenshots[1], region=DEFAULT_APP_REGION)

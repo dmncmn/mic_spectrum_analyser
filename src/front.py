@@ -99,7 +99,7 @@ class WidgetsWindow:
         self.timer_show_message.start()
 
     def sens_setter(self, value):
-        self.sensitivity = value / 10
+        self.sensitivity = value
         self.message = f"{SLIDER_SENSITIVITY_LABEL_TEXT}: {value}"
 
     def res_setter(self, value):
@@ -119,7 +119,7 @@ class WidgetsWindow:
             return
 
         self.YDATA = StreamAdapter.get_data_ready_to_plot(self.decimation,
-                                                          self.sensitivity)
+                                                          self.sensitivity / 10)
 
     def update_bar(self):
 

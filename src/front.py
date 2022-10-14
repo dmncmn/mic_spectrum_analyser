@@ -156,14 +156,10 @@ class WindowOverrideEvents(WindowFrameless):
     def __init__(self):
         super().__init__()
         self.drag_pos = QtCore.QPoint()
-        self.sizegrip.mouseMoveEvent = self.dummyEventOverride
         self.plot.mousePressEvent = self.mousePressEvent
         self.plot.mouseReleaseEvent = self.mouseReleaseEvent
         self.plot.mouseMoveEvent = self.mouseMoveEvent
         self.plot.wheelEvent = self.wheelEvent
-
-    def dummyEventOverride(self, event) -> None:
-        ...
 
     def mousePressEvent(self, event) -> None:
         if event.button() == QtCore.Qt.LeftButton:

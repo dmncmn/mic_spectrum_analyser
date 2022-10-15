@@ -36,24 +36,25 @@ def test_fft_normalize_spectrum(fft_size, amplitude):
     """
     Check fft spectrum normalization
     """
-    FFT.FFT_SIZE = fft_size
     # Let spectrum be like spectrum of white noise
+    FFT.FFT_SIZE = fft_size
     spectrum = np.full(shape=(FFT.FFT_SIZE,), fill_value=amplitude)
     normalized_spectrum = FFT._normalize_spectrum(spectrum)
     assert normalized_spectrum[0] * FFT.FFT_SIZE == amplitude
 
 
+@pytest.mark.parametrize("amplitude", [100])
 @pytest.mark.parametrize("fft_size", [1024, 512, 256, 128, 64])
 @pytest.mark.parametrize("decimation_factor", [1, 8, 32])
-def test_fft_decimate_spectrum(fft_size, decimation_factor):
+def test_fft_decimate_spectrum(amplitude, fft_size, decimation_factor):
     """
     Check fft spectrum decimation
     """
-    FFT.FFT_SIZE = fft_size
     # Let spectrum be like spectrum of white noise
-    amplitude = 100
+    FFT.FFT_SIZE = fft_size
     spectrum = np.full(shape=(FFT.FFT_SIZE,), fill_value=amplitude)
-    decimated_spectrum = FFT._decimate_spectrum(spectrum, decimation_factor)
+    FFT.FFT_DECIMATION_FACTOR = decimation_factor
+    decimated_spectrum = FFT._decimate_spectrum(spectrum)
     assert len(decimated_spectrum) * decimation_factor == len(spectrum)
 
 
@@ -65,5 +66,20 @@ def test_fft_change_spectrum_level(level, amplitude):
     """
     # Let spectrum be like spectrum of white noise
     spectrum = np.full(shape=(FFT.FFT_SIZE,), fill_value=amplitude)
-    scaled_spectrum = FFT._change_spectrum_level(spectrum, level)
+    FFT.FFT_LEVEL_FACTOR = level
+    scaled_spectrum = FFT._change_spectrum_level(spectrum)
     assert scaled_spectrum[0] == amplitude * level
+
+
+@pytest.mark.parametrize("amplitude", [100])
+@pytest.mark.parametrize("len_data", [1024, 512, 256, 128, 64])
+@pytest.mark.parametrize("window", [np.hamming, np.bartlett, np.blackman])
+def test_fft_get_smoothed_time_data(amplitude, len_data, window):
+    """
+    Check fft time-data smoothing
+    """
+    # Let time-data be like const
+    time_data = np.full(shape=(len_data,), fill_value=amplitude)
+    smoothed_data = time_data * window(len(time_data))
+    fft_smoothed_data = FFT._get_smoothed_time_data(time_data, window)
+    assert np.array_equal(smoothed_data, fft_smoothed_data)

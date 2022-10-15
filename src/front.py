@@ -1,4 +1,3 @@
-
 import sys
 import numpy as np
 import pyqtgraph as pg
@@ -8,18 +7,12 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, \
 
 from src.styles import *
 from src.stream import StreamAdapter
-from src.fft import FFT
 
 
 class WidgetsWindow:
 
     def __init__(self):
         super().__init__()
-
-        self.decimation: int = FFT.FFT_DEFAULT_DECIMATION_FACTOR
-        self.sensitivity: int = FFT.FFT_DEFAULT_LEVEL_FACTOR
-
-        self.YDATA: np.ndarray = np.empty(1)
 
         self.central_widget = QWidget()
         self.layout = QGridLayout()
@@ -32,8 +25,13 @@ class WidgetsWindow:
         self.layout.addWidget(self.close_button, 3, 0)
 
         self.plot = pg.PlotWidget()
-        self.bargraph = pg.BarGraphItem(x=[], height=[], width=1)
-        self.plot.addItem(self.bargraph)
+        self.bar_x: np.ndarray = []
+        self.bar_y: np.ndarray = []
+        self.bar_x_res: float = .0
+        self.bar_graph = pg.BarGraphItem(x0=self.bar_x,
+                                         height=self.bar_y,
+                                         width=self.bar_x_res)
+        self.plot.addItem(self.bar_graph)
         self.plot.setMenuEnabled(False)
         self.plot.setMouseEnabled(x=False, y=False)
         self.plot.setXRange(PLOT_X_MIN_VALUE, PLOT_X_MAX_VALUE, padding=0)
@@ -99,45 +97,38 @@ class WidgetsWindow:
         self.timer_show_message.start()
 
     def sens_setter(self, value):
-        self.sensitivity = value
-        self.message = f"{SLIDER_SENSITIVITY_LABEL_TEXT}: {value}"
+        StreamAdapter.LEVEL = value
+        self.message = f"{SLIDER_SENSITIVITY_LABEL_TEXT}: {StreamAdapter.LEVEL}"
 
     def res_setter(self, value):
-        self.decimation = 2 ** value
-        self.message = f"{SLIDER_RESOLUTION_LABEL_TEXT}: {self.decimation}"
+        StreamAdapter.DECIMATION = 2 ** value
+        self.message = f"{SLIDER_RESOLUTION_LABEL_TEXT}: " \
+                       f"{StreamAdapter.DECIMATION}"
 
     def show_message(self):
         self.message = LABEL_INIT_TEXT
         self.timer_show_message.stop()
 
     def listen_stream(self):
-
         if not StreamAdapter.IS_ALIVE:
             self.message = LABEL_EXCEPTION_TEXT
             self.timer_update_bar.stop()
             self.timer_listen_stream.stop()
             return
-
-        self.YDATA = StreamAdapter.get_data_ready_to_plot(self.decimation,
-                                                          self.sensitivity / 10)
+        self.bar_x_res, self.bar_x, self.bar_y = \
+            StreamAdapter.get_data_ready_to_plot()
 
     def update_bar(self):
-
-        if self.YDATA is None:
+        if not StreamAdapter.IS_ALIVE:
             return
-
-        if max(self.YDATA) > PLOT_THRESHOLD_OVERLOAD:
+        if max(self.bar_y) > PLOT_THRESHOLD_OVERLOAD:
             color = PLOT_BAR_COLOR_OVERLOAD
             self.message = LABEL_OVERLOAD_TEXT
         else:
             color = PLOT_BAR_COLOR
-
-        XDATA_STEP = PLOT_X_MAX_VALUE / len(self.YDATA) * 2
-        XDATA = np.arange(PLOT_X_MIN_VALUE, PLOT_X_MAX_VALUE, XDATA_STEP)
-        self.bargraph.setOpts(x0=XDATA,
-                              height=self.YDATA,
-                              width=XDATA_STEP * PLOT_BAR_WIDTH,
-                              brush=color, pen=color)
+        self.bar_graph.setOpts(x0=self.bar_x, height=self.bar_y,
+                               width=self.bar_x_res * PLOT_BAR_WIDTH,
+                               brush=color, pen=color)
 
 
 class WindowFrameless(WidgetsWindow, QMainWindow):

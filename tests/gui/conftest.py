@@ -13,7 +13,7 @@ from tests.methods.positions import *
 def setup():
     """ Run app """
     subprocess.Popen([sys.executable, 'main.py', '--device=Mock'])
-    time.sleep(1)
+    time.sleep(3)
     """ Set cursor to default position """
     cursor_pos = get_new_position(DEFAULT_APP_REGION, DEFAULT_CLICK_POINT)
     pyautogui.moveTo(cursor_pos)

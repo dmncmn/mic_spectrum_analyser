@@ -28,7 +28,7 @@ Run app (enable microphone):
 python -m main
 ```
 
-Run tests (disable microphone:
+Run tests:
 ```
 python -m pytest tests/ -v
 ```

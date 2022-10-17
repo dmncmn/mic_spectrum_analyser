@@ -13,7 +13,7 @@ class FFT:
     FFT_LEVEL_FACTOR = 1
 
     @staticmethod
-    def _get_time_data(raw_data: str) -> np.ndarray:
+    def _get_time_data(raw_data: bytes) -> np.ndarray:
         return np.frombuffer(raw_data, np.int16)
 
     @staticmethod
@@ -44,7 +44,7 @@ class FFT:
         return spectrum * FFT.FFT_LEVEL_FACTOR
 
     @staticmethod
-    def data_ready_to_plot(raw_data: str) -> np.ndarray:
+    def data_ready_to_plot(raw_data: bytes) -> np.ndarray:
         data = FFT._get_time_data(raw_data)
         data = FFT._get_smoothed_time_data(data)
         data = FFT._get_amplitude_spectrum(data)

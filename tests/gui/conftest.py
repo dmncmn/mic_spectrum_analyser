@@ -5,6 +5,7 @@ import time
 import pytest
 import pyautogui
 import subprocess
+from typing import Generator
 
 from tests.methods.utils import get_new_position
 from tests.methods.positions import DEFAULT_APP_REGION, DEFAULT_CLICK_POINT
@@ -18,7 +19,7 @@ d.start()
 
 
 @pytest.fixture
-def setup():
+def setup() -> None:
     """ Run app """
     subprocess.Popen([sys.executable, 'main.py', '--device=Mock'])
     time.sleep(1)
@@ -28,7 +29,7 @@ def setup():
 
 
 @pytest.fixture
-def teardown():
+def teardown() -> Generator:
     """ Close app """
     yield
     pyautogui.hotkey('alt', 'F4')

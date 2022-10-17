@@ -2,10 +2,10 @@
 import allure
 import pytest
 import numpy as np
+import src.styles as s
 from src.selector import DeviceSelector
 from src.stream import StreamAdapter
 from src.fft import FFT
-from src.styles import *
 
 
 @allure.feature('Test stream adapter')
@@ -76,4 +76,4 @@ def test_stream_adapter_data_out_x_res(decimation_factor):
         data_x_res, data_x, _ = StreamAdapter._data_out(raw_data)
 
     with allure.step("Check resolution"):
-        assert data_x_res * len(data_x) == PLOT_X_MAX_VALUE
+        assert data_x_res * len(data_x) == s.PLOT_X_MAX_VALUE

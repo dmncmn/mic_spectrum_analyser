@@ -2,7 +2,7 @@
 import io
 import os
 import allure
-from typing import Union
+from typing import Union, NoReturn, Optional
 from PIL import Image, ImageChops
 
 screenshots: tuple = ('screenshot_1.png', 'screenshot_2.png')
@@ -28,7 +28,7 @@ def get_new_position(first_position: tuple,
            first_position[len(offset):]
 
 
-def allure_attach_screenshot(picture_obj: Image.Image):
+def allure_attach_screenshot(picture_obj: Image.Image) -> None:
     """ Add Pillow object as a PNG file to allure """
     fp = io.BytesIO()
     picture_obj.save(fp, format='PNG')
@@ -37,7 +37,7 @@ def allure_attach_screenshot(picture_obj: Image.Image):
                   attachment_type=allure.attachment_type.PNG)
 
 
-def assert_screenshots(same: bool):
+def assert_screenshots(same: bool) -> Optional[NoReturn]:
     """ Assert screenshots pair and remove them """
     try:
         assert images_are_similar(*screenshots) is same
@@ -46,3 +46,4 @@ def assert_screenshots(same: bool):
     finally:
         remove_image(screenshots[0])
         remove_image(screenshots[1])
+        return None

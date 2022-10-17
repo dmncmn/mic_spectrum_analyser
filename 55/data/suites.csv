@@ -1,0 +1,153 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_fft","","","","test_fft_get_amplitude_spectrum[10000-22050]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_change_spectrum_level[100-1]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_fft","","","","test_fft_get_amplitude_spectrum[2500-44100]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_device","","","","test_device_stream_is_singleton[MockDevice]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_change_spectrum_level[1-32]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_decimate_spectrum[32-128-100]","
+    Check fft spectrum decimation
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_fft","","","","test_fft_get_smoothed_time_data[blackman-128-100]","
+    Check fft time-data smoothing
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_fft","","","","test_fft_decimate_spectrum[1-64-100]","
+    Check fft spectrum decimation
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_fft","","","","test_fft_normalize_spectrum[1-128]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_get_amplitude_spectrum[500-10000]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_stream_adapter","","","","test_stream_adapter_data_out_y[8-100]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_fft","","","","test_fft_get_smoothed_time_data[hamming-1024-100]","
+    Check fft time-data smoothing
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_get_amplitude_spectrum[1000-22050]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_fft","","","","test_fft_decimate_spectrum[1-512-100]","
+    Check fft spectrum decimation
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_fft","","","","test_fft_normalize_spectrum[1-256]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_get_amplitude_spectrum[500-44100]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_change_spectrum_level[1-1]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_change_spectrum_level[100-4]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_decimate_spectrum[8-128-100]","
+    Check fft spectrum decimation
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_get_smoothed_time_data[hamming-256-100]","
+    Check fft time-data smoothing
+    "
+"failed","Mon Oct 17 10:15:23 GMT 2022","Mon Oct 17 10:15:24 GMT 2022","487","tests.gui","test_front","","","","test_front_draggable_window[100-0]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_fft","","","","test_fft_get_smoothed_time_data[blackman-256-100]","
+    Check fft time-data smoothing
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_fft","","","","test_fft_decimate_spectrum[32-64-100]","
+    Check fft spectrum decimation
+    "
+"failed","Mon Oct 17 10:15:29 GMT 2022","Mon Oct 17 10:15:30 GMT 2022","511","tests.gui","test_front","","","","test_front_draggable_window[100-100]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_change_spectrum_level[1-8]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_fft","","","","test_fft_get_amplitude_spectrum[1000-10000]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_decimate_spectrum[1-256-100]","
+    Check fft spectrum decimation
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_change_spectrum_level[1-4]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_stream_adapter","","","","test_stream_adapter_data_out_x_res[8]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_stream_adapter","","","","test_stream_adapter_data_out_same_x_y[1]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_device","","","","test_device_is_singleton[MockDevice]",""
+"failed","Mon Oct 17 10:15:35 GMT 2022","Mon Oct 17 10:15:35 GMT 2022","548","tests.gui","test_front","","","","test_front_draggable_window[0--100]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_decimate_spectrum[1-1024-100]","
+    Check fft spectrum decimation
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","75","tests.unit","test_device","","","","test_device_is_singleton[Mic]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_fft","","","","test_fft_change_spectrum_level[1-16]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_get_smoothed_time_data[hamming-128-100]","
+    Check fft time-data smoothing
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_selector","","","","test_selector_is_singleton",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_get_smoothed_time_data[hamming-512-100]","
+    Check fft time-data smoothing
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_stream_adapter","","","","test_stream_adapter_data_out_y[32-100]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_change_spectrum_level[100-8]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_stream_adapter","","","","test_stream_adapter_data_out_y[1-1]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_stream_adapter","","","","test_stream_adapter_data_out_same_x_y[8]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_get_amplitude_spectrum[2500-22050]",""
+"failed","Mon Oct 17 10:16:12 GMT 2022","Mon Oct 17 10:16:13 GMT 2022","1685","tests.gui","test_front","","","","test_front_size_grip[200-100]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_get_smoothed_time_data[bartlett-256-100]","
+    Check fft time-data smoothing
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_normalize_spectrum[100-256]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_fft","","","","test_fft_change_spectrum_level[100-16]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_decimate_spectrum[8-256-100]","
+    Check fft spectrum decimation
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_get_smoothed_time_data[blackman-1024-100]","
+    Check fft time-data smoothing
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_get_smoothed_time_data[bartlett-512-100]","
+    Check fft time-data smoothing
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_fft","","","","test_fft_change_spectrum_level[1-2]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_normalize_spectrum[1-64]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_stream_adapter","","","","test_stream_adapter_data_in_",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_decimate_spectrum[1-128-100]","
+    Check fft spectrum decimation
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_fft","","","","test_fft_decimate_spectrum[8-512-100]","
+    Check fft spectrum decimation
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_decimate_spectrum[32-1024-100]","
+    Check fft spectrum decimation
+    "
+"failed","Mon Oct 17 10:16:19 GMT 2022","Mon Oct 17 10:16:20 GMT 2022","1748","tests.gui","test_front","","","","test_front_size_grip[-200--100]",""
+"failed","Mon Oct 17 10:15:41 GMT 2022","Mon Oct 17 10:15:41 GMT 2022","599","tests.gui","test_front","","","","test_front_draggable_window[-100-0]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_fft","","","","test_fft_normalize_spectrum[1-1024]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_fft","","","","test_fft_get_smoothed_time_data[hamming-64-100]","
+    Check fft time-data smoothing
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_normalize_spectrum[100-128]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_fft","","","","test_fft_normalize_spectrum[100-512]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_get_amplitude_spectrum[500-22050]",""
+"failed","Mon Oct 17 10:15:58 GMT 2022","Mon Oct 17 10:16:00 GMT 2022","1120","tests.gui","test_front","","","","test_front_change_opacity_up_down[-1]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_fft","","","","test_fft_get_amplitude_spectrum[10000-44100]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_fft","","","","test_fft_get_smoothed_time_data[bartlett-128-100]","
+    Check fft time-data smoothing
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_device","","","","test_device_stream_is_singleton[Mic]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_fft","","","","test_fft_normalize_spectrum[100-64]",""
+"failed","Mon Oct 17 10:16:05 GMT 2022","Mon Oct 17 10:16:06 GMT 2022","1585","tests.gui","test_front","","","","test_front_change_opacity_up_down[1]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_get_smoothed_time_data[blackman-512-100]","
+    Check fft time-data smoothing
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_stream_adapter","","","","test_stream_adapter_data_out_x_res[1]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_fft","","","","test_fft_decimate_spectrum[8-64-100]","
+    Check fft spectrum decimation
+    "
+"failed","Mon Oct 17 10:15:53 GMT 2022","Mon Oct 17 10:15:53 GMT 2022","813","tests.gui","test_front","","","","test_front_close_button",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_get_smoothed_time_data[bartlett-1024-100]","
+    Check fft time-data smoothing
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_get_smoothed_time_data[blackman-64-100]","
+    Check fft time-data smoothing
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_stream_adapter","","","","test_stream_adapter_data_out_same_x_y[32]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_decimate_spectrum[8-1024-100]","
+    Check fft spectrum decimation
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_stream_adapter","","","","test_stream_adapter_data_out_x_res[32]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_normalize_spectrum[1-512]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_fft","","","","test_fft_get_smoothed_time_data[bartlett-64-100]","
+    Check fft time-data smoothing
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_fft","","","","test_fft_change_spectrum_level[100-2]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_decimate_spectrum[32-256-100]","
+    Check fft spectrum decimation
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_fft","","","","test_fft_get_amplitude_spectrum[1000-44100]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_decimate_spectrum[32-512-100]","
+    Check fft spectrum decimation
+    "
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_stream_adapter","","","","test_stream_adapter_data_out_y[32-1]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","1","tests.unit","test_stream_adapter","","","","test_stream_adapter_data_out_y[1-100]",""
+"failed","Mon Oct 17 10:15:18 GMT 2022","Mon Oct 17 10:15:18 GMT 2022","520","tests.gui","test_front","","","","test_front_draggable_window[0-100]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_stream_adapter","","","","test_stream_adapter_data_out_y[8-1]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_normalize_spectrum[100-1024]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_change_spectrum_level[100-32]",""
+"failed","Mon Oct 17 10:15:47 GMT 2022","Mon Oct 17 10:15:47 GMT 2022","708","tests.gui","test_front","","","","test_front_draggable_window[-100--100]",""
+"passed","Mon Oct 17 10:15:09 GMT 2022","Mon Oct 17 10:15:09 GMT 2022","0","tests.unit","test_fft","","","","test_fft_get_amplitude_spectrum[20000-44100]",""

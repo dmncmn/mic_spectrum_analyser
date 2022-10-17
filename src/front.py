@@ -22,11 +22,11 @@ class WidgetsWindow:
         self.close_button.setStyleSheet(CSS_QUIT_BUTTON)
         self.close_button.setToolTip(CLOSE_BUTTON_TEXT_TOOLTIP)
         self.close_button.clicked.connect(self.close)
-        self.layout.addWidget(self.close_button, 3, 0)
+        self.layout.addWidget(self.close_button, 3, 0, QtCore.Qt.AlignLeft)
 
         self.plot = pg.PlotWidget()
-        self.bar_x: np.ndarray = []
-        self.bar_y: np.ndarray = []
+        self.bar_x: np.ndarray = np.array([1])
+        self.bar_y: np.ndarray = np.array([1])
         self.bar_x_res: float = .0
         self.bar_graph = pg.BarGraphItem(x0=self.bar_x,
                                          height=self.bar_y,
@@ -97,8 +97,8 @@ class WidgetsWindow:
         self.timer_show_message.start()
 
     def sens_setter(self, value):
-        StreamAdapter.LEVEL = value
-        self.message = f"{SLIDER_SENSITIVITY_LABEL_TEXT}: {StreamAdapter.LEVEL}"
+        StreamAdapter.LEVEL = value / (SLIDER_SENSITIVITY_MAX_VALUE - value + 1)
+        self.message = f"{SLIDER_SENSITIVITY_LABEL_TEXT}: {round(StreamAdapter.LEVEL, 1)}"
 
     def res_setter(self, value):
         StreamAdapter.DECIMATION = 2 ** value

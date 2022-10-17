@@ -1,17 +1,17 @@
 import sys
 import numpy as np
 import pyqtgraph as pg
-from PyQt5 import QtCore
+from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QApplication, QMainWindow, \
     QWidget, QGridLayout, QPushButton, QSlider, QSizeGrip, QLabel
 
-from src.styles import *
+import src.styles as s
 from src.stream import StreamAdapter
 
 
 class WidgetsWindow:
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
         self.central_widget = QWidget()
@@ -19,9 +19,9 @@ class WidgetsWindow:
         self.central_widget.setLayout(self.layout)
 
         self.close_button = QPushButton()
-        self.close_button.setStyleSheet(CSS_QUIT_BUTTON)
-        self.close_button.setToolTip(CLOSE_BUTTON_TEXT_TOOLTIP)
-        self.close_button.clicked.connect(self.close)
+        self.close_button.setStyleSheet(s.CSS_QUIT_BUTTON)
+        self.close_button.setToolTip(s.CLOSE_BUTTON_TEXT_TOOLTIP)
+        self.close_button.clicked.connect(self.quit)
         self.layout.addWidget(self.close_button, 3, 0, QtCore.Qt.AlignLeft)
 
         self.plot = pg.PlotWidget()
@@ -34,117 +34,123 @@ class WidgetsWindow:
         self.plot.addItem(self.bar_graph)
         self.plot.setMenuEnabled(False)
         self.plot.setMouseEnabled(x=False, y=False)
-        self.plot.setXRange(PLOT_X_MIN_VALUE, PLOT_X_MAX_VALUE, padding=0)
-        self.plot.setYRange(PLOT_Y_MIN_VALUE, PLOT_Y_MAX_VALUE, padding=0)
-        self.plot.setLabel('left', PLOT_LEFT_LABEL)
-        self.plot.setLabel('bottom', PLOT_BOTTOM_LABEL)
-        self.plot.showGrid(x=PLOT_SHOW_GRID_X, y=PLOT_SHOW_GRID_Y)
-        if PLOT_HIDE_AXIS_X:
+        self.plot.setXRange(s.PLOT_X_MIN_VALUE, s.PLOT_X_MAX_VALUE, padding=0)
+        self.plot.setYRange(s.PLOT_Y_MIN_VALUE, s.PLOT_Y_MAX_VALUE, padding=0)
+        self.plot.setLabel('left', s.PLOT_LEFT_LABEL)
+        self.plot.setLabel('bottom', s.PLOT_BOTTOM_LABEL)
+        self.plot.showGrid(x=s.PLOT_SHOW_GRID_X, y=s.PLOT_SHOW_GRID_Y)
+        if s.PLOT_HIDE_AXIS_X:
             self.plot.hideAxis('bottom')
-        if PLOT_HIDE_AXIS_Y:
+        if s.PLOT_HIDE_AXIS_Y:
             self.plot.hideAxis('left')
         self.layout.addWidget(self.plot, 1, 1, 1, 2)
 
         self.slider_sens = QSlider()
         self.slider_sens.setOrientation(QtCore.Qt.Horizontal)
-        self.slider_sens.setRange(SLIDER_SENSITIVITY_MIN_VALUE,
-                                  SLIDER_SENSITIVITY_MAX_VALUE)
-        self.slider_sens.setValue(SLIDER_SENSITIVITY_CURRENT_VALUE)
-        self.slider_sens.setSingleStep(SLIDER_SENSITIVITY_STEP)
+        self.slider_sens.setRange(s.SLIDER_SENSITIVITY_MIN_VALUE,
+                                  s.SLIDER_SENSITIVITY_MAX_VALUE)
+        self.slider_sens.setValue(s.SLIDER_SENSITIVITY_CURRENT_VALUE)
+        self.slider_sens.setSingleStep(s.SLIDER_SENSITIVITY_STEP)
         self.slider_sens.valueChanged.connect(self.sens_setter)
-        self.slider_sens.setToolTip(SLIDER_SENSITIVITY_TEXT_TOOLTIP)
-        self.slider_sens.setStyleSheet(CSS_SLIDERS)
+        self.slider_sens.setToolTip(s.SLIDER_SENSITIVITY_TEXT_TOOLTIP)
+        self.slider_sens.setStyleSheet(s.CSS_SLIDERS)
         self.layout.addWidget(self.slider_sens, 2, 1)
 
         self.slider_res = QSlider()
         self.slider_res.setOrientation(QtCore.Qt.Horizontal)
-        self.slider_res.setRange(SLIDER_RESOLUTION_MIN_VALUE,
-                                 SLIDER_RESOLUTION_MAX_VALUE)
-        self.slider_res.setValue(SLIDER_RESOLUTION_CURRENT_VALUE)
-        self.slider_res.setSingleStep(SLIDER_RESOLUTION_STEP)
+        self.slider_res.setRange(s.SLIDER_RESOLUTION_MIN_VALUE,
+                                 s.SLIDER_RESOLUTION_MAX_VALUE)
+        self.slider_res.setValue(s.SLIDER_RESOLUTION_CURRENT_VALUE)
+        self.slider_res.setSingleStep(s.SLIDER_RESOLUTION_STEP)
         self.slider_res.valueChanged.connect(self.res_setter)
-        self.slider_res.setToolTip(SLIDER_RESOLUTION_TEXT_TOOLTIP)
-        self.slider_res.setStyleSheet(CSS_SLIDERS)
+        self.slider_res.setToolTip(s.SLIDER_RESOLUTION_TEXT_TOOLTIP)
+        self.slider_res.setStyleSheet(s.CSS_SLIDERS)
         self.layout.addWidget(self.slider_res, 2, 2)
 
-        self.sizegrip = QSizeGrip(self)
+        self.sizegrip = QSizeGrip(self.central_widget)
         self.layout.addWidget(self.sizegrip, 3, 3)
 
         self.label_message = QLabel()
-        self.label_message.setStyleSheet(CSS_MESSAGE_LABEL)
-        self.label_message.setText(LABEL_INIT_TEXT)
+        self.label_message.setStyleSheet(s.CSS_MESSAGE_LABEL)
+        self.label_message.setText(s.LABEL_INIT_TEXT)
         self.layout.addWidget(self.label_message, 3, 1)
 
         self.timer_listen_stream = QtCore.QTimer()
         self.timer_listen_stream.timeout.connect(self.listen_stream)
-        self.timer_listen_stream.start(TIMER_LISTEN_MIC_MS)
+        self.timer_listen_stream.start(s.TIMER_LISTEN_MIC_MS)
 
         self.timer_update_bar = QtCore.QTimer()
         self.timer_update_bar.timeout.connect(self.update_bar)
-        self.timer_update_bar.start(TIMER_UPDATE_BAR_MS)
+        self.timer_update_bar.start(s.TIMER_UPDATE_BAR_MS)
 
         self.timer_show_message = QtCore.QTimer()
         self.timer_show_message.timeout.connect(self.show_message)
-        self.timer_show_message.start(TIMER_SHOW_MESSAGE_MS)
+        self.timer_show_message.start(s.TIMER_SHOW_MESSAGE_MS)
+
+    @staticmethod
+    def quit() -> None:
+        sys.exit(0)
 
     @property
-    def message(self) -> None:
-        return None
+    def message(self) -> str:
+        return ''
 
     @message.setter
-    def message(self, value):
+    def message(self, value: str) -> None:
         self.label_message.setText(f"{value}")
         self.timer_show_message.start()
 
-    def sens_setter(self, value):
-        StreamAdapter.LEVEL = value / (SLIDER_SENSITIVITY_MAX_VALUE - value + 1)
-        self.message = f"{SLIDER_SENSITIVITY_LABEL_TEXT}: {round(StreamAdapter.LEVEL, 1)}"
+    def sens_setter(self, value: int) -> None:
+        StreamAdapter.LEVEL = value / \
+                              (s.SLIDER_SENSITIVITY_MAX_VALUE - value + 1)
+        self.message = f"{s.SLIDER_SENSITIVITY_LABEL_TEXT}: " \
+                       f"{round(StreamAdapter.LEVEL, 1)}"
 
-    def res_setter(self, value):
+    def res_setter(self, value: int) -> None:
         StreamAdapter.DECIMATION = 2 ** value
-        self.message = f"{SLIDER_RESOLUTION_LABEL_TEXT}: " \
+        self.message = f"{s.SLIDER_RESOLUTION_LABEL_TEXT}: " \
                        f"{StreamAdapter.DECIMATION}"
 
-    def show_message(self):
-        self.message = LABEL_INIT_TEXT
+    def show_message(self) -> None:
+        self.message = s.LABEL_INIT_TEXT
         self.timer_show_message.stop()
 
-    def listen_stream(self):
+    def listen_stream(self) -> None:
+        plot_data = StreamAdapter.get_data_ready_to_plot()
         if not StreamAdapter.IS_ALIVE:
-            self.message = LABEL_EXCEPTION_TEXT
+            self.message = s.LABEL_EXCEPTION_TEXT
             self.timer_update_bar.stop()
             self.timer_listen_stream.stop()
             return
-        self.bar_x_res, self.bar_x, self.bar_y = \
-            StreamAdapter.get_data_ready_to_plot()
+        if plot_data:
+            self.bar_x_res, self.bar_x, self.bar_y = plot_data
 
-    def update_bar(self):
-        if not StreamAdapter.IS_ALIVE:
-            return
-        if max(self.bar_y) > PLOT_THRESHOLD_OVERLOAD:
-            color = PLOT_BAR_COLOR_OVERLOAD
-            self.message = LABEL_OVERLOAD_TEXT
+    def update_bar(self) -> None:
+        if max(self.bar_y) > s.PLOT_THRESHOLD_OVERLOAD:
+            color = s.PLOT_BAR_COLOR_OVERLOAD
+            self.message = s.LABEL_OVERLOAD_TEXT
         else:
-            color = PLOT_BAR_COLOR
+            color = s.PLOT_BAR_COLOR
         self.bar_graph.setOpts(x0=self.bar_x, height=self.bar_y,
-                               width=self.bar_x_res * PLOT_BAR_WIDTH,
+                               width=self.bar_x_res * s.PLOT_BAR_WIDTH,
                                brush=color, pen=color)
 
 
-class WindowFrameless(WidgetsWindow, QMainWindow):
+# TODO fix layout in base class "QWidget"
+class WindowFrameless(WidgetsWindow, QMainWindow):  # type: ignore
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-        self.opacity = DEFAULT_OPACITY
+        self.opacity = s.DEFAULT_OPACITY
         self.setCentralWidget(self.central_widget)
-        self.setStyleSheet(CSS_MAIN_WINDOW)
-        self.setWindowOpacity(DEFAULT_OPACITY / OPACITY_DIV_FACTOR)
+        self.setStyleSheet(s.CSS_MAIN_WINDOW)
+        self.setWindowOpacity(s.DEFAULT_OPACITY / s.OPACITY_DIV_FACTOR)
 
 
 class WindowOverrideEvents(WindowFrameless):
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self.drag_pos = QtCore.QPoint()
         self.plot.mousePressEvent = self.mousePressEvent
@@ -152,35 +158,35 @@ class WindowOverrideEvents(WindowFrameless):
         self.plot.mouseMoveEvent = self.mouseMoveEvent
         self.plot.wheelEvent = self.wheelEvent
 
-    def mousePressEvent(self, event) -> None:
+    def mousePressEvent(self, event: QtGui.QMouseEvent) -> None:
         if event.button() == QtCore.Qt.LeftButton:
             self.timer_update_bar.stop()
             self.drag_pos = event.globalPos()
 
-    def mouseReleaseEvent(self, event) -> None:
+    def mouseReleaseEvent(self, event: QtGui.QMouseEvent) -> None:
         self.timer_update_bar.start()
 
-    def mouseMoveEvent(self, event) -> None:
+    def mouseMoveEvent(self, event: QtGui.QMouseEvent) -> None:
         if event.buttons() == QtCore.Qt.LeftButton:
             self.move(self.pos() + event.globalPos() - self.drag_pos)
             self.drag_pos = event.globalPos()
             event.accept()
 
-    def wheelEvent(self, event) -> None:
+    def wheelEvent(self, event: QtGui.QWheelEvent) -> None:
         if event.angleDelta().y() > 0:
-            if self.opacity < OPACITY_MAX_VALUE:
-                self.opacity += OPACITY_STEP_VALUE
+            if self.opacity < s.OPACITY_MAX_VALUE:
+                self.opacity += s.OPACITY_STEP_VALUE
         else:
-            if self.opacity >= OPACITY_MIN_VALUE:
-                self.opacity -= OPACITY_STEP_VALUE
+            if self.opacity >= s.OPACITY_MIN_VALUE:
+                self.opacity -= s.OPACITY_STEP_VALUE
 
-        self.setWindowOpacity(self.opacity / OPACITY_DIV_FACTOR)
+        self.setWindowOpacity(self.opacity / s.OPACITY_DIV_FACTOR)
         self.message = \
-            f"{LABEL_OPACITY_TEXT}: {self.opacity * OPACITY_DIV_FACTOR}%"
+            f"{s.LABEL_OPACITY_TEXT}: {self.opacity * s.OPACITY_DIV_FACTOR}%"
 
-    def mouseDoubleClickEvent(self, event) -> None:
+    def mouseDoubleClickEvent(self, event: QtGui.QMouseEvent) -> None:
         if not (self.windowState() & QtCore.Qt.WindowMaximized):
-            self.message = LABEL_FULLSCREEN_TEXT
+            self.message = s.LABEL_FULLSCREEN_TEXT
             self.showMaximized()
             return
         self.showNormal()
@@ -189,17 +195,17 @@ class WindowOverrideEvents(WindowFrameless):
 class AppFront(WindowOverrideEvents):
 
     @staticmethod
-    def run():
+    def run() -> None:
         app = QApplication(sys.argv)
 
-        desktop_resolution = app.desktop().screenGeometry().width(), \
-                             app.desktop().screenGeometry().height()
+        screen_geometry = app.desktop().screenGeometry()
+        desktop_resolution = screen_geometry.width(), screen_geometry.height()
 
-        center = (desktop_resolution[0] - WINDOW_WIDTH) // 2, \
-                 (desktop_resolution[1] - WINDOW_HEIGHT) // 2
+        center = (desktop_resolution[0] - s.WINDOW_WIDTH) // 2, \
+                 (desktop_resolution[1] - s.WINDOW_HEIGHT) // 2
 
         app_window = WindowOverrideEvents()
-        app_window.setGeometry(*center, WINDOW_WIDTH, WINDOW_HEIGHT)
+        app_window.setGeometry(*center, s.WINDOW_WIDTH, s.WINDOW_HEIGHT)
         app_window.show()
 
         sys.exit(app.exec())

@@ -1,5 +1,5 @@
 
-from typing import Union, Tuple
+from typing import Optional, Tuple
 import numpy as np
 from src.fft import FFT
 from src.selector import DeviceSelector
@@ -14,12 +14,12 @@ class StreamAdapter:
     LEVEL: int = 1
 
     @staticmethod
-    def _data_in() -> Union[str, None]:
+    def _data_in() -> bytes:
         StreamAdapter.IS_ALIVE = DeviceSelector().device_is_alive
         return DeviceSelector().stream_data
 
     @staticmethod
-    def _data_out(raw_data: str) -> Tuple[float, np.ndarray, np.ndarray]:
+    def _data_out(raw_data: bytes) -> Tuple[float, np.ndarray, np.ndarray]:
         FFT.FFT_SIZE = DeviceSelector().size_data
         FFT.FFT_DECIMATION_FACTOR = StreamAdapter.DECIMATION
         FFT.FFT_LEVEL_FACTOR = StreamAdapter.LEVEL
@@ -31,8 +31,11 @@ class StreamAdapter:
         return x_res, x_data, y_data
 
     @staticmethod
-    def get_data_ready_to_plot() -> Union[np.ndarray, None]:
+    def get_data_ready_to_plot() -> \
+            Optional[Tuple[float, np.ndarray, np.ndarray]]:
         raw_data = StreamAdapter._data_in()
-        if raw_data is None:
-            return
-        return StreamAdapter._data_out(raw_data)
+        if StreamAdapter.IS_ALIVE and raw_data:
+            data_out = StreamAdapter._data_out(raw_data)
+        else:
+            data_out = None
+        return data_out

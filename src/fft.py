@@ -19,7 +19,7 @@ class FFT:
     @staticmethod
     def _get_smoothed_time_data(
             time_data: np.ndarray,
-            window: Callable[[np.ndarray], np.ndarray] = np.hamming) \
+            window: Callable[[int], np.ndarray] = np.hamming) \
             -> np.ndarray:
         return time_data * window(len(time_data))
 

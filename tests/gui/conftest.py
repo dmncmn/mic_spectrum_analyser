@@ -1,19 +1,27 @@
 
+import os
 import sys
 import time
 import pytest
 import pyautogui
 import subprocess
 
-from tests.methods.utils import *
-from tests.methods.positions import *
+from tests.methods.utils import get_new_position
+from tests.methods.positions import DEFAULT_APP_REGION, DEFAULT_CLICK_POINT
+
+from pyvirtualdisplay.display import Display
+import Xlib.display
+
+pyautogui._pyautogui_x11._display = Xlib.display.Display(os.environ['DISPLAY'])
+d = Display(visible=True, size=(1920, 1080), backend="xvfb", use_xauth=True)
+d.start()
 
 
 @pytest.fixture
 def setup():
     """ Run app """
     subprocess.Popen([sys.executable, 'main.py', '--device=Mock'])
-    time.sleep(3)
+    time.sleep(1)
     """ Set cursor to default position """
     cursor_pos = get_new_position(DEFAULT_APP_REGION, DEFAULT_CLICK_POINT)
     pyautogui.moveTo(cursor_pos)
@@ -24,16 +32,3 @@ def teardown():
     """ Close app """
     yield
     pyautogui.hotkey('alt', 'F4')
-
-
-@pytest.fixture
-def assert_screenshots(same):
-    """ Assert screenshots pair and remove them """
-    yield
-    try:
-        assert images_are_similar(*screenshots) == same
-    except AssertionError as e:
-        raise e
-    finally:
-        remove_image(screenshots[0])
-        remove_image(screenshots[1])

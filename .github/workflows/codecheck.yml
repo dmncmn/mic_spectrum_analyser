@@ -15,10 +15,43 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.9
-      - name: install venv
+      - name: install packages
+        run: sudo apt install portaudio19-dev xvfb xserver-xephyr libxcb-xinerama0 libxkbcommon-x11-0 scrot -y
+      - name: install env
         run: |
-          sudo apt install portaudio19-dev
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: unit tests
-        run: python -m pytest tests/unit -v
+        run: python -m pytest tests/unit -v --alluredir=allure-results
+      - name: gui tests
+        run: |
+          Xvfb :99 -ac &
+          DISPLAY=:99 python -m pytest tests/gui -v --alluredir=allure-results
+        continue-on-error: true
+      - name: generate allure-results
+        run: python -m allure serve allure-results
+
+      - name: Get Allure history
+        uses: actions/checkout@v2
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+      - name: Allure Report action from marketplace
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        id: allure-report
+        with:
+          allure_results: allure-results
+          gh_pages: gh-pages
+          allure_report: allure-report
+          allure_history: allure-history
+          keep_reports: 20
+      - name: Deploy report to Github Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v2
+        env:
+          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: allure-history

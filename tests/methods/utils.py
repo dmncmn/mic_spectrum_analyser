@@ -1,5 +1,7 @@
 
+import io
 import os
+import allure
 from typing import Union
 from PIL import Image, ImageChops
 
@@ -12,9 +14,7 @@ def images_are_similar(picture_1: str,
     picture_obj_2: Image.Image = Image.open(picture_2)
     diff: Union[tuple, None] = ImageChops.difference(picture_obj_1,
                                                      picture_obj_2).getbbox()
-    if diff is None:
-        return True
-    return False
+    return not bool(diff)
 
 
 def remove_image(picture: str) -> None:
@@ -26,3 +26,23 @@ def get_new_position(first_position: tuple,
                      offset: tuple) -> tuple:
     return tuple(sum(x) for x in zip(first_position, offset)) + \
            first_position[len(offset):]
+
+
+def allure_attach_screenshot(picture_obj: Image.Image):
+    """ Add Pillow object as a PNG file to allure """
+    fp = io.BytesIO()
+    picture_obj.save(fp, format='PNG')
+    raw = fp.getvalue()
+    allure.attach(raw, name="Screenshot",
+                  attachment_type=allure.attachment_type.PNG)
+
+
+def assert_screenshots(same: bool):
+    """ Assert screenshots pair and remove them """
+    try:
+        assert images_are_similar(*screenshots) is same
+    except AssertionError as e:
+        raise e
+    finally:
+        remove_image(screenshots[0])
+        remove_image(screenshots[1])

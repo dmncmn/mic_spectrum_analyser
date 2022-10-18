@@ -2,24 +2,10 @@
 import io
 import os
 import allure
-from typing import Union, NoReturn, Optional
-from PIL import Image, ImageChops
+from typing import NoReturn, Optional
+from PIL import Image
 
 screenshots: tuple = ('screenshot_1.png', 'screenshot_2.png')
-
-
-def images_are_similar(picture_1: str,
-                       picture_2: str) -> bool:
-    picture_obj_1: Image.Image = Image.open(picture_1)
-    picture_obj_2: Image.Image = Image.open(picture_2)
-    diff: Union[tuple, None] = ImageChops.difference(picture_obj_1,
-                                                     picture_obj_2).getbbox()
-    return not bool(diff)
-
-
-def remove_image(picture: str) -> None:
-    if os.path.isfile(picture):
-        os.remove(picture)
 
 
 def get_new_position(first_position: tuple,
@@ -37,13 +23,27 @@ def allure_attach_screenshot(picture_obj: Image.Image) -> None:
                   attachment_type=allure.attachment_type.PNG)
 
 
-def assert_screenshots(same: bool) -> Optional[NoReturn]:
+def remove_image(picture: str) -> None:
+    if os.path.isfile(picture):
+        os.remove(picture)
+
+
+def assert_screenshots(picture_1: Image.Image,
+                       picture_2: Image.Image,
+                       same: bool) -> Optional[NoReturn]:
     """ Assert screenshots pair and remove them """
     try:
-        assert images_are_similar(*screenshots) is same
+        with io.BytesIO() as fp:
+            picture_1.save(fp, format='PNG')
+            picture_1_raw = fp.getvalue()
+        with io.BytesIO() as fp:
+            picture_2.save(fp, format='PNG')
+            picture_2_raw = fp.getvalue()
+        assert (picture_1_raw == picture_2_raw) is same
     except AssertionError as e:
         raise e
+    else:
+        return None
     finally:
         remove_image(screenshots[0])
         remove_image(screenshots[1])
-        return None

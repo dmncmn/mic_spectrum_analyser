@@ -13,11 +13,12 @@ from tests.methods.utils import screenshots, allure_attach_screenshot, \
 @pytest.mark.parametrize("offset_x, offset_y",
                          [(0, 100), (100, 0), (100, 100),
                           (0, -100), (-100, 0), (-100, -100)])
-def test_front_draggable_window(setup, teardown, offset_x, offset_y):
+def test_front_draggable_window(setup, offset_x, offset_y):
 
     with allure.step("Take a screenshot"):
-        img = pyautogui.screenshot(screenshots[0], region=p.DEFAULT_APP_REGION)
-        allure_attach_screenshot(img)
+        img_1 = pyautogui.screenshot(screenshots[0],
+                                     region=p.DEFAULT_APP_REGION)
+        allure_attach_screenshot(img_1)
 
     with allure.step("Drag window to new position"):
         pyautogui.moveTo(get_new_position(p.DEFAULT_APP_REGION,
@@ -30,11 +31,11 @@ def test_front_draggable_window(setup, teardown, offset_x, offset_y):
     with allure.step("Take a screenshot"):
         new_app_pos = get_new_position(p.DEFAULT_APP_REGION,
                                        (offset_x, offset_y))
-        img = pyautogui.screenshot(screenshots[1], region=new_app_pos)
-        allure_attach_screenshot(img)
+        img_2 = pyautogui.screenshot(screenshots[1], region=new_app_pos)
+        allure_attach_screenshot(img_2)
 
     with allure.step("Compare screenshots"):
-        assert_screenshots(True)
+        assert_screenshots(img_1, img_2, True)
 
 
 @allure.feature('Test front')
@@ -42,52 +43,57 @@ def test_front_draggable_window(setup, teardown, offset_x, offset_y):
 def test_front_close_button(setup):
 
     with allure.step("Take a screenshot"):
-        img = pyautogui.screenshot(screenshots[0], region=p.DEFAULT_APP_REGION)
-        allure_attach_screenshot(img)
+        img_1 = pyautogui.screenshot(screenshots[0],
+                                     region=p.DEFAULT_APP_REGION)
+        allure_attach_screenshot(img_1)
 
     with allure.step("Click the close button"):
         pyautogui.click(get_new_position(p.DEFAULT_APP_REGION,
                                          p.CLOSE_BUTTON_CLICK_POINT))
 
     with allure.step("Take a screenshot"):
-        img = pyautogui.screenshot(screenshots[1], region=p.DEFAULT_APP_REGION)
-        allure_attach_screenshot(img)
+        img_2 = pyautogui.screenshot(screenshots[1],
+                                     region=p.DEFAULT_APP_REGION)
+        allure_attach_screenshot(img_2)
 
     with allure.step("Compare screenshots"):
-        assert_screenshots(False)
+        assert_screenshots(img_1, img_2, False)
 
 
 @allure.feature('Test front')
 @allure.story('Check that the window opacity changes by wheel')
 @pytest.mark.parametrize("up_down", [-1, 1])
-def test_front_change_opacity_up_down(setup, teardown, up_down):
+def test_front_change_opacity_up_down(setup, up_down):
 
     with allure.step("Change opacity to -1"):
         pyautogui.scroll(-1)
 
     with allure.step("Take a screenshot"):
-        img = pyautogui.screenshot(screenshots[0], region=p.DEFAULT_APP_REGION)
-        allure_attach_screenshot(img)
+        img_1 = pyautogui.screenshot(screenshots[0],
+                                     region=p.DEFAULT_APP_REGION)
+        allure_attach_screenshot(img_1)
 
     with allure.step("Scroll"):
         pyautogui.scroll(up_down)
 
     with allure.step("Take a screenshot"):
-        img = pyautogui.screenshot(screenshots[1], region=p.DEFAULT_APP_REGION)
-        allure_attach_screenshot(img)
+        img_2 = pyautogui.screenshot(screenshots[1],
+                                     region=p.DEFAULT_APP_REGION)
+        allure_attach_screenshot(img_2)
 
     with allure.step("Compare screenshots"):
-        assert_screenshots(False)
+        assert_screenshots(img_1, img_2, False)
 
 
 @allure.feature('Test front')
 @allure.story('Check that the window size changes by SizeGrip')
 @pytest.mark.parametrize("offset_x, offset_y", [(200, 100), (-200, -100)])
-def test_front_size_grip(setup, teardown, offset_x, offset_y):
+def test_front_size_grip(setup, offset_x, offset_y):
 
     with allure.step("Take a screenshot"):
-        img = pyautogui.screenshot(screenshots[0], region=p.DEFAULT_APP_REGION)
-        allure_attach_screenshot(img)
+        img_1 = pyautogui.screenshot(screenshots[0],
+                                     region=p.DEFAULT_APP_REGION)
+        allure_attach_screenshot(img_1)
 
     with allure.step("Click and drag by SizeGrip"):
         size_grip_pos = get_new_position(p.DEFAULT_APP_REGION,
@@ -96,8 +102,9 @@ def test_front_size_grip(setup, teardown, offset_x, offset_y):
         pyautogui.dragTo(get_new_position(size_grip_pos, (offset_x, offset_y)))
 
     with allure.step("Take a screenshot"):
-        img = pyautogui.screenshot(screenshots[1], region=p.DEFAULT_APP_REGION)
-        allure_attach_screenshot(img)
+        img_2 = pyautogui.screenshot(screenshots[1],
+                                     region=p.DEFAULT_APP_REGION)
+        allure_attach_screenshot(img_2)
 
     with allure.step("Compare screenshots"):
-        assert_screenshots(False)
+        assert_screenshots(img_1, img_2, False)
